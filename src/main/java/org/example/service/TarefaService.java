@@ -161,15 +161,12 @@ public class TarefaService {
                             try {
                                 LocalDateTime dataLimite;
                                 if (tarefa.getDateLimite() != null) {
-                                    // Tenta o formato padrão
                                     try {
                                         dataLimite = LocalDateTime.parse(tarefa.getDateLimite(), FORMATTER);
                                     } catch (DateTimeParseException e) {
-                                        // Tenta o formato alternativo
                                         dataLimite = LocalDate.parse(tarefa.getDateLimite(), ALTERNATIVE_FORMAT).atStartOfDay();
                                     }
 
-                                    // Verifica se está atrasada
                                     if (dataLimite.isBefore(LocalDateTime.now())
                                             && !tarefa.getStatus().equals(Status.CONCLUIDO)) {
                                         return "Atrasadas";
